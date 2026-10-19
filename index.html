@@ -1,0 +1,997 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <title>Archivo base</title>
+</head>
+<body>
+    
+<canvas id="myCanvas">
+    <!--El elemento HTML canvas se puede utilizar para dibujar gráficos a través de 
+        secuencias de comandos (por lo general JavaScript ).-->
+</canvas>
+
+<!-- Aquí va todo el código de three.js -->
+<!-- script type="importmap" importa las librerías necesarias para three.js-->
+<script type="importmap"> 
+    {
+        "imports":{
+            "three": "./js/three.module.js",
+            "three/OrbitControls": "./js/OrbitControls.js" 
+        }
+}
+</script>
+<script type="module"> 
+//🗃️🗃️ Mandar llamar a la librería
+    import * as THREE from 'three'; 
+    import {OrbitControls} from 'three/OrbitControls';
+    console.log(OrbitControls);
+    import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
+
+    import ESC01 from "./props/cuadro.js"
+    import ESC01_1 from "./props/cuadro2.js"
+    import ESC01_2 from "./props/cuadro3.js"
+    import ESC01_3 from "./props/cuadro4.js"
+    import ESC01_4 from "./props/cuadro5.js"
+    import ESC01_5 from "./props/cuadro6.js"
+    import ESC01_6 from "./props/cuadro7.js"
+    import ESC001 from "./props/otravela.js"
+    import ESC0001 from "./props/base.js"
+    import ESC02 from "./props/papelpicado.js"
+    import ESC02_1 from "./props/papelpicadosolo1.js"
+    import ESC02_2 from "./props/papelpicadosolo2.js"
+    import ESC02_3 from "./props/papelpicadosolo3.js"
+    import ESC02_4 from "./props/papelpicadosolo4.js"
+    import ESC002 from "./props/pan.js"
+    import ESC0002 from "./props/coca.js"
+    import ESC03 from "./props/florero.js"
+    import ESC003 from "./props/tarro.js"
+    import ESC0003 from "./props/copal.js"
+    import ESC04 from "./props/calavera.js"
+    import ESC044 from "./props/calavera_Azul.js"
+    import ESC004 from "./props/floreroH.js"
+    import ESC0004 from "./props/velaJ.js"
+    import ESC05 from "./props/caja_madera_pequeña.js"
+    import ESC005 from "./props/alfombra.js"
+    import ESC0005 from "./props/cigarros.js"
+    import ESC06 from "./props/caja_madera_grande.js" 
+    import ESC0006 from "./props/boli.js" 
+    import ESC0007 from "./props/bol.js"
+    import ESC0008 from "./props/canasta.js"
+    import ESC0009 from "./props/otracanasta.js"
+    import ESC0010 from "./props/flomarco.js"
+    import ESC00011 from "./props/mike.js"
+
+//🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
+    var renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('myCanvas'), antialias: true,
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x69106B);
+
+// 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
+    var scene = new THREE.Scene();
+
+//🎥🎥 Agregar una cámara de perspectiva
+     var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+    );
+    scene.add(camera);
+
+    //Settings de la cámara
+    camera.position.set(17, 2, 0);
+
+    // Añadiendo los OrbitControls
+    var controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+    
+ // ✍️ GridHelper
+
+var obj = new THREE.TextureLoader();
+var bgtexture = obj.load('img/fondo.jpg');
+scene.background = bgtexture;
+
+// Espacio para colocar los objetos
+
+///  💫💢🐭🐭 LUCES
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFShadowMap;
+//luces velas
+
+var luzVela1 = new THREE.PointLight(0xffaa33, 2, 7, 2); 
+luzVela1.position.set(2.2, 3.65, -6.8);
+scene.add(luzVela1);
+
+
+var luzVela2 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela2.position.set(2.2, 3.65, 6.8); 
+scene.add(luzVela2);
+
+
+var luzVela3 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela3.position.set(5.62, 2.75, 3.52); 
+scene.add(luzVela3);
+
+
+var luzVela4 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela4.position.set(5.62, 2.75, -3.52); 
+scene.add(luzVela4);
+
+
+var luzVela5= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela5.position.set(-1, 4.8, -6.9); 
+scene.add(luzVela5);
+
+
+var luzVela6= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela6.position.set(4, 3.155, -0.5); 
+scene.add(luzVela6);
+
+
+var luzVela7= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela7.position.set(4, 3.155, 0.5); 
+scene.add(luzVela7);
+
+
+var luzVela8= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela8.position.set(-3.3, 6.05, 0.7); 
+scene.add(luzVela8);
+
+
+var luzVela9= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela9.position.set(-3.3, 6.05, -0.7); 
+scene.add(luzVela9);
+
+
+var luzVela10= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela10.position.set(1, 4.35, -1.5); 
+scene.add(luzVela10);
+
+
+var luzVela11= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela11.position.set(1, 4.35, 1.5); 
+scene.add(luzVela11);
+
+
+var luzVela12= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela12.position.set(-1, 4.8, 6.9); 
+scene.add(luzVela12);
+
+
+//
+var luzVela13 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela13.position.set(6.8, 0.55, 2.2); 
+scene.add(luzVela13);
+
+
+//
+var luzVela27 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela27.position.set(6.8, 0.55, -2.2); 
+scene.add(luzVela27);
+
+
+//
+var luzVela41= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela41.position.set(-2.15,4.36,-2.5); 
+scene.add(luzVela41);
+
+
+var luzVela42= new THREE.PointLight(0xffaa33, 2, 5, 2); 
+luzVela42.position.set(-2.15,4.36,2.5); 
+scene.add(luzVela42);
+
+
+var luzVela43= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela43.position.set(9.6,0.5,-8.55); 
+scene.add(luzVela43);
+
+
+var luzVela44= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela44.position.set(9.6,0.5,8.55); 
+scene.add(luzVela44);
+
+
+var luzVela45= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela45.position.set(-9.6,0.5,8.55); 
+scene.add(luzVela45);
+
+
+var luzVela46= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela46.position.set(-9.6,0.5,-8.55); 
+scene.add(luzVela46);
+
+
+var luzVela47= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela47.position.set(0,0.5,-8.55); 
+scene.add(luzVela47);
+
+
+var luzVela48= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela48.position.set(0,0.5,8.55); 
+scene.add(luzVela48);
+
+
+var luzVela49= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela49.position.set(-4.4,6.4,4.35); 
+scene.add(luzVela49);
+
+
+var luzVela50= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela50.position.set(-4.4,6.4,-4.35); 
+scene.add(luzVela50);
+
+
+var luzVela51= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela51.position.set(-9.6,0.5,0); 
+scene.add(luzVela51);
+
+
+var luzVela52= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela52.position.set(-6.1,11.1,3.25); 
+scene.add(luzVela52);
+
+
+var luzVela53= new THREE.PointLight(0xffaa33, 2, 10, 2); 
+luzVela53.position.set(-6.1,11.1,-3.25); 
+scene.add(luzVela53);
+
+
+var luzVela54= new THREE.PointLight(0xffaa33, 2, 7, 2); 
+luzVela54.position.set(9,2,0); 
+scene.add(luzVela54);
+
+
+//OBJETOS  ✏️✏️✏️✏️  🪶
+var piso = new THREE.Mesh(
+    new THREE.PlaneGeometry(50,50),
+    new THREE.MeshLambertMaterial({color: 0x634646, side: THREE.DoubleSide})
+);
+scene.add(piso);
+piso.rotation.x = -Math.PI / 2;
+piso.receiveShadow = true;
+
+//base
+const Base = ESC0001({x:0,y:-2.2,z:0});
+Base.scale.set(0.186, 0.186, 0.186);
+Base.rotation.set(0, Math.PI / 2, 0);
+scene.add(Base);
+
+//alfombra
+const Alfombra = ESC005({x:0,y:-0.22,z:0});
+Alfombra.rotation.set(0, Math.PI / 2, 0);
+scene.add(Alfombra);
+
+//cuadros
+const Cuadro = ESC01({x:0.5,y:2.8,z:-5.2});
+Cuadro.rotation.set(0, Math.PI / 2.5, 0);
+Cuadro.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro);
+
+const Cuadro2 = ESC01_1({x:0.5,y:2.8,z:5.2});
+Cuadro2.rotation.set(0, Math.PI / 1.5, 0);
+Cuadro2.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro2);
+
+const Cuadro3 = ESC01_2({x:-4.8,y:5.96,z:0});
+Cuadro3.rotation.set(0, Math.PI / 2, 0);
+Cuadro3.scale.set(0.8, 0.8, 0.8);
+scene.add(Cuadro3);
+
+const Cuadro4 = ESC01_3({x:-4.8,y:5.96,z:1.4});
+Cuadro4.rotation.set(0, Math.PI / 2.1, 0);
+Cuadro4.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro4);
+
+const Cuadro5 = ESC01_4({x:-4.8,y:5.96,z:-1.4});
+Cuadro5.rotation.set(0, Math.PI / 1.9, 0);
+Cuadro5.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro5);
+
+const Cuadro6 = ESC01_5({x:-2.8,y:4.3,z:5.7});
+Cuadro6.rotation.set(0, Math.PI / 1.5, 0);
+Cuadro6.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro6);
+
+const Cuadro7 = ESC01_6({x:-2.8,y:4.3,z:-5.5});
+Cuadro7.rotation.set(0, Math.PI / 2.5, 0);
+Cuadro7.scale.set(0.6, 0.6, 0.6);
+scene.add(Cuadro7);
+
+//papel picado
+const Papelpicado = ESC02({x:-6.3,y:8.9,z:0});
+Papelpicado.rotation.set(0,Math.PI / 2, 0);
+Papelpicado.scale.set(0.6, 0.6, 0.6);
+scene.add(Papelpicado);
+
+const Papelpicado2 = ESC02_1({x:-1.35,y:4.05,z:-1});
+Papelpicado2.rotation.set(0,Math.PI / 2, 0);
+Papelpicado2.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado2);
+
+const Papelpicado3 = ESC02_2({x:-1.35,y:4.05,z:1});
+Papelpicado3.rotation.set(0,Math.PI / 2, 0);
+Papelpicado3.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado3);
+
+const Papelpicado4 = ESC02_3({x:-0.45,y:1.27,z:-5.8});
+Papelpicado4.rotation.set(0,Math.PI / 2, 0);
+Papelpicado4.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado4);
+
+const Papelpicado5 = ESC02_1({x:-0.45,y:1.27,z:5.8});
+Papelpicado5.rotation.set(0,Math.PI / 2, 0);
+Papelpicado5.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado5);
+
+const Papelpicado6 = ESC02_4({x:1.8,y:2.4,z:-0.8});
+Papelpicado6.rotation.set(0,Math.PI / 2, 0);
+Papelpicado6.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado6);
+
+const Papelpicado7 = ESC02_3({x:1.8,y:2.4,z:-2.3});
+Papelpicado7.rotation.set(0,Math.PI / 2, 0);
+Papelpicado7.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado7);
+
+const Papelpicado8 = ESC02_2({x:1.8,y:2.4,z:0.8});
+Papelpicado8.rotation.set(0,Math.PI / 2, 0);
+Papelpicado8.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado8);
+
+const Papelpicado9 = ESC02_1({x:1.8,y:2.4,z:2.3});
+Papelpicado9.rotation.set(0,Math.PI / 2, 0);
+Papelpicado9.scale.set(1.2, 1.2, 1.2);
+scene.add(Papelpicado9);
+
+const Papelpicado10 = ESC02_2({x:2.8,y:-0.13,z:-5.8});
+Papelpicado10.rotation.set(0,Math.PI / 2, 0);
+Papelpicado10.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado10);
+
+const Papelpicado11 = ESC02_4({x:2.8,y:-0.13,z:5.8});
+Papelpicado11.rotation.set(0,Math.PI / 2, 0);
+Papelpicado11.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado11);
+
+const Papelpicado12 = ESC02_3({x:-3.7,y:2.82,z:3.3});
+Papelpicado12.rotation.set(0,Math.PI / 2, 0);
+Papelpicado12.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado12);
+
+const Papelpicado13 = ESC02_4({x:-3.7,y:2.82,z:-3.3});
+Papelpicado13.rotation.set(0,Math.PI / 2, 0);
+Papelpicado13.scale.set(2.5, 2.5, 1.2);
+scene.add(Papelpicado13);
+
+//calaveritas
+const Calaverita = ESC04({x:1,y:2.8,z:-5.6});
+Calaverita.scale.set(0.4, 0.4, 0.4);
+Calaverita.rotation.set(0,Math.PI / -8, 0);
+scene.add(Calaverita);
+
+const Calaverita2 = ESC04({x:5.9,y:2,z:-1.5});
+Calaverita2.scale.set(0.4, 0.4, 0.4);
+Calaverita2.rotation.set(0,Math.PI / -8, 0);
+scene.add(Calaverita2);
+
+const Calaverita3 = ESC04({x:5.9,y:2,z:1.5});
+Calaverita3.scale.set(0.4, 0.4, 0.4);
+Calaverita3.rotation.set(0,Math.PI / 8, 0);
+scene.add(Calaverita3);
+
+const Calaverita4 = ESC044({x:-4,y:5.95,z:2.1});
+Calaverita4.scale.set(0.4, 0.4, 0.4);
+Calaverita4.rotation.set(0,Math.PI / 8, 0);
+scene.add(Calaverita4);
+
+const Calaverita5 = ESC044({x:-4,y:5.95,z:-2.1});
+Calaverita5.scale.set(0.4, 0.4, 0.4);
+Calaverita5.rotation.set(0,Math.PI / -8, 0);
+scene.add(Calaverita5);
+
+const Calaverita6 = ESC044({x:-0.5,y:3.85,z:1.2});
+Calaverita6.scale.set(0.4, 0.4, 0.4);
+Calaverita6.rotation.set(0,Math.PI / 8, 0);
+scene.add(Calaverita6);
+
+const Calaverita7 = ESC04({x:-0.5,y:3.85,z:-1.2});
+Calaverita7.scale.set(0.4, 0.4, 0.4);
+Calaverita7.rotation.set(0,Math.PI / -8, 0);
+scene.add(Calaverita7);
+
+//cajas
+const Cajamaderapequeña = ESC05({x:1.15,y:0,z:-5.8});
+Cajamaderapequeña.scale.set(2, 2, 2);
+scene.add(Cajamaderapequeña);
+
+const Cajamaderapequeña2 = ESC05({x:1.15,y:0,z:5.8});
+Cajamaderapequeña2.scale.set(2, 2, 2);
+scene.add(Cajamaderapequeña2);
+
+const Cajamaderapequeña3 = ESC05({x:4.5,y:1.9,z:0});
+Cajamaderapequeña3.scale.set(1, 0.55, 1);
+scene.add(Cajamaderapequeña3);
+
+const Cajamaderagrande = ESC06({x:-2.1,y:0,z:-5.8});
+Cajamaderagrande.scale.set(2, 2, 2);
+scene.add(Cajamaderagrande);
+
+const Cajamaderagrande2 = ESC06({x:-2.1,y:0,z:5.8});
+Cajamaderagrande2.scale.set(2, 2, 2);
+scene.add(Cajamaderagrande2);
+
+//cigarros
+const Cigarros = ESC0005({x:-1.1,y:3.7,z:-1.3});
+Cigarros.scale.set(0.1, 0.1, 0.1);
+Cigarros.rotation.set(0, Math.PI / 2.5, 0);
+scene.add(Cigarros);
+
+const Cigarros2 = ESC0005({x:4.6,y:2.78,z:-0.1});
+Cigarros2.scale.set(0.08, 0.08, 0.08);
+Cigarros2.rotation.set(Math.PI / -2, 0, Math.PI / -1.2);
+scene.add(Cigarros2);
+
+//canastas
+const Canasta1 = ESC0008({x:2.5,y:2.77,z:1});
+Canasta1.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta1);
+
+const Canasta2 = ESC0009({x:0.5,y:2.6,z:-6.5});
+Canasta2.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta2);
+
+const Canasta3 = ESC0009({x:3.4,y:-0.2,z:6.4});
+Canasta3.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta3);
+
+const Canasta4 = ESC0008({x:3.4,y:-0.2,z:-6.4});
+Canasta4.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta4);
+
+const Canasta5 = ESC0008({x:-3.1,y:3.65,z:-2.5});
+Canasta5.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta5);
+
+const Canasta6 = ESC0009({x:-3.1,y:3.65,z:2.5});
+Canasta6.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta6);
+
+const Canasta7 = ESC0008({x:0.3,y:2.62,z:6.6});
+Canasta7.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta7);
+
+const Canasta8 = ESC0009({x:2.5,y:2.77,z:-1});
+Canasta8.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta8);
+
+const Canasta9 = ESC0008({x:-0.76,y:3.65,z:0});
+Canasta9.scale.set(0.4, 0.4, 0.4);
+scene.add(Canasta9);
+
+//panes
+const Pan= ESC002({x:1.6,y:2.8,z:-5.1});
+Pan.scale.set(0.1, 0.1, 0.1);
+scene.add(Pan);
+
+const Pan2= ESC002({x:-1.3,y:4.3,z:-4.9});
+Pan2.scale.set(0.1, 0.1, 0.1);
+scene.add(Pan2);
+
+const Pan3= ESC002({x:-1.3,y:4.4,z:-5.3});
+Pan3.scale.set(0.1, 0.1, 0.1);
+Pan3.rotation.set(Math.PI / -6, 0, 0);
+scene.add(Pan3);
+
+const Pan4= ESC002({x:-4.2,y:5.95,z:-1});
+Pan4.scale.set(0.08, 0.08, 0.08);
+scene.add(Pan4);
+
+const Pan5= ESC002({x:-1.2,y:4.3,z:4.9});
+Pan5.scale.set(0.1, 0.1, 0.1);
+scene.add(Pan5);
+
+const Pan6= ESC002({x:-2.5,y:5.51,z:1});
+Pan6.scale.set(0.1, 0.1, 0.1);
+scene.add(Pan6);
+
+const Pan7= ESC002({x:-2.5,y:5.6,z:0.6});
+Pan7.scale.set(0.1, 0.1, 0.1);
+Pan7.rotation.set(Math.PI / -6, 0, 0);
+scene.add(Pan7);
+
+//cocas
+const Coca= ESC0002({x:4.5,y:2.63,z:-0.3});
+Coca.scale.set(0.2, 0.2, 0.2);
+scene.add(Coca);
+
+const Coca2= ESC0002({x:-1,y:3.8,z:-2});
+Coca2.scale.set(0.2, 0.2, 0.2);
+scene.add(Coca2);
+
+const Coca3= ESC0002({x:-2,y:4.25,z:6.5});
+Coca3.scale.set(0.2, 0.2, 0.2);
+scene.add(Coca3);
+
+const Coca4= ESC0002({x:1.5,y:2.75,z:-6.3});
+Coca4.scale.set(0.2, 0.2, 0.2);
+scene.add(Coca4);
+
+// copal
+const Copal= ESC0003({x:-1,y:3.72,z:2});
+Copal.scale.set(0.2, 0.2, 0.2);
+scene.add(Copal);
+
+const Copal2= ESC0003({x:-3.15,y:4.18,z:-6.8});
+Copal2.scale.set(0.2, 0.2, 0.2);
+scene.add(Copal2);
+
+const Copal3= ESC0003({x:-2.48,y:5.38,z:-1});
+Copal3.scale.set(0.2, 0.2, 0.2);
+scene.add(Copal3);
+
+// flores de cempasúchil 
+const Flor1 = ESC0006({x:-4,y:6,z:-1.7});
+scene.add(Flor1);
+
+const Flor2 = ESC0007({x:-4,y:6,z:1.7});
+scene.add(Flor2);
+
+const Flor3 = ESC0007({x:-1.2,y:4.37,z:-6.2});
+Flor3.scale.set(0.02, 0.02, 0.02);
+scene.add(Flor3);
+
+const Flor4 = ESC0006({x:-2.1,y:4.37,z:-5.1});
+Flor4.scale.set(0.02, 0.02, 0.02);
+scene.add(Flor4);
+
+const Flor5 = ESC0006({x:0.9,y:2.87,z:-5});
+scene.add(Flor5);
+
+const Flor6 = ESC0007({x:2,y:2.87,z:-6});
+Flor4.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor6);
+
+const Flor7 = ESC0006({x:0.9,y:2.87,z:5});
+Flor7.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor7);
+
+const Flor8 = ESC0007({x:2.2,y:2.87,z:6});
+Flor8.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor8);
+
+const Flor9 = ESC0007({x:-1.2,y:4.37,z:6.2});
+Flor9.scale.set(0.02, 0.02, 0.02);
+scene.add(Flor9);
+
+const Flor10 = ESC0006({x:-2.1,y:4.37,z:5.1});
+Flor10.scale.set(0.02, 0.02, 0.02);
+scene.add(Flor10);
+
+const Flor11 = ESC0006({x:-3.3,y:5.63,z:1.4});
+Flor11.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor11);
+
+const Flor12 = ESC0006({x:-3.3,y:5.63,z:-1.4});
+Flor12.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor12);
+
+const Flor13 = ESC0007({x:-3.3,y:5.63,z:0});
+Flor13.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor13);
+
+const Flor14 = ESC0007({x:-1.5,y:3.96,z:-2.5});
+Flor14.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor14);
+
+const Flor15 = ESC0006({x:-1.5,y:3.96,z:2.5});
+Flor15.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor15);
+
+const Flor16 = ESC0007({x:0,y:3.92,z:2});
+Flor16.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor16);
+
+const Flor17 = ESC0006({x:0,y:3.92,z:-2});
+Flor17.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor17);
+
+const Flor18 = ESC0006({x:1,y:3.96,z:-2.5});
+Flor18.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor18);
+
+const Flor19 = ESC0007({x:1,y:3.96,z:2.5});
+Flor19.scale.set(0.015, 0.015, 0.015);
+scene.add(Flor19);
+
+const Flor20 = ESC0007({x:2.2,y:3.05,z:2});
+Flor20.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor20);
+
+const Flor21 = ESC0007({x:2.2,y:3.05,z:-2});
+Flor21.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor21);
+
+const Flor22 = ESC0006({x:2.2,y:3.05,z:0});
+Flor22.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor22);
+
+const Flor23 = ESC0006({x:4.3,y:2,z:-1.4});
+Flor23.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor23);
+
+const Flor24 = ESC0007({x:5,y:2,z:-2.6});
+Flor24.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor24);
+
+const Flor25 = ESC0006({x:4.3,y:2,z:1.4});
+Flor25.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor25);
+
+const Flor26 = ESC0007({x:5,y:2,z:2.6});
+Flor26.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor26);
+
+const Flor27 = ESC0007({x:2.7,y:2,z:2.6});
+Flor27.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor27);
+
+const Flor28 = ESC0006({x:2.7,y:2,z:-2.6});
+Flor28.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor28);
+
+const Flor29 = ESC0007({x:2.7,y:2,z:-1.5});
+Flor29.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor29);
+
+const Flor30 = ESC0006({x:2.7,y:2,z:1.5});
+Flor30.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor30);
+
+const Flor31 = ESC0007({x:2.7,y:2,z:0.4});
+Flor31.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor31);
+
+const Flor32 = ESC0006({x:2.7,y:2,z:-0.4});
+Flor32.scale.set(0.012, 0.012, 0.012);
+scene.add(Flor32);
+
+//
+const Flor33 = ESC0007({x:6,y:1.23,z:-2.25});
+Flor33.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor33);
+
+const Flor34 = ESC0006({x:6,y:1.23,z:-2.9});
+Flor34.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor34);
+
+const Flor35 = ESC0007({x:6.2,y:1.23,z:-3.5});
+Flor35.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor35);
+
+const Flor36 = ESC0006({x:6.2,y:1.23,z:-4});
+Flor36.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor36);
+
+const Flor37 = ESC0006({x:5.55,y:1.21,z:-4.05});
+Flor37.scale.set(0.008, 0.008, 0.008);
+scene.add(Flor37);
+
+const Flor38 = ESC0007({x:4.8,y:1.23,z:-3.72});
+Flor38.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor38);
+
+const Flor39 = ESC0006({x:4,y:1.23,z:-3.72});
+Flor39.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor39);
+
+const Flor40 = ESC0007({x:3.2,y:1.23,z:-3.72});
+Flor40.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor40);
+
+const Flor41 = ESC0006({x:2.4,y:1.23,z:-3.72});
+Flor41.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor41);
+
+const Flor42 = ESC0007({x:1.6,y:1.23,z:-3.72});
+Flor42.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor42);
+
+const Flor43 = ESC0006({x:0.8,y:1.23,z:-3.72});
+Flor43.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor43);
+
+const Flor44 = ESC0007({x:0,y:1.23,z:-3.72});
+Flor44.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor44);
+
+const Flor45 = ESC0006({x:-0.8,y:1.23,z:-3.72});
+Flor45.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor45);
+
+const Flor46 = ESC0007({x:-1.6,y:1.23,z:-3.72});
+Flor46.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor46);
+
+const Flor47 = ESC0006({x:-2.4,y:1.23,z:-3.72});
+Flor47.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor47);
+
+const Flor48 = ESC0007({x:-3.2,y:1.23,z:-3.72});
+Flor48.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor48);
+
+//
+const Flor49 = ESC0007({x:6,y:1.23,z:2.25});
+Flor49.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor49);
+
+const Flor50 = ESC0006({x:6,y:1.23,z:2.9});
+Flor50.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor50);
+
+const Flor51 = ESC0007({x:6.2,y:1.23,z:3.5});
+Flor51.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor51);
+
+const Flor52 = ESC0006({x:6.2,y:1.23,z:4});
+Flor52.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor52);
+
+const Flor53 = ESC0006({x:5.55,y:1.21,z:4.05});
+Flor53.scale.set(0.008, 0.008, 0.008);
+scene.add(Flor53);
+
+const Flor54 = ESC0007({x:4.8,y:1.23,z:3.72});
+Flor54.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor54);
+
+const Flor55 = ESC0006({x:4,y:1.23,z:3.72});
+Flor55.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor55);
+
+const Flor56 = ESC0007({x:3.2,y:1.23,z:3.72});
+Flor56.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor56);
+
+const Flor57 = ESC0006({x:2.4,y:1.23,z:3.72});
+Flor57.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor57);
+
+const Flor58 = ESC0007({x:1.6,y:1.23,z:3.72});
+Flor58.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor58);
+
+const Flor59 = ESC0006({x:0.8,y:1.23,z:3.72});
+Flor59.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor59);
+
+const Flor60 = ESC0007({x:0,y:1.23,z:3.72});
+Flor60 .scale.set(0.01, 0.01, 0.01);
+scene.add(Flor60);
+
+const Flor61 = ESC0006({x:-0.8,y:1.23,z:3.72});
+Flor61.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor61);
+
+const Flor62 = ESC0007({x:-1.6,y:1.23,z:3.72});
+Flor62.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor62);
+
+const Flor63 = ESC0006({x:-2.4,y:1.23,z:3.72});
+Flor63.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor63);
+
+const Flor64 = ESC0007({x:-3.2,y:1.23,z:3.72});
+Flor64.scale.set(0.01, 0.01, 0.01);
+scene.add(Flor64);
+
+//marco de flores
+const Flormarco = ESC0010({x:0,y:0.15,z:0});
+Flormarco.rotation.set(0, Math.PI / 2, 0);
+Flormarco.scale.set(0.95, 0.95, 0.95);
+scene.add(Flormarco);
+
+//velas
+const VelaJ = ESC0004({x:2.2,y:2.88,z:-6.8});
+VelaJ.scale.set(0.25, 0.25, 0.25);
+scene.add(VelaJ);
+
+const VelaJ2 = ESC0004({x:2.2,y:2.88,z:6.8});
+VelaJ2.scale.set(0.25, 0.25, 0.25);
+scene.add(VelaJ2);
+
+const VelaJ3 = ESC0004({x:4,y:2.68,z:-0.5});
+VelaJ3.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ3);
+
+const VelaJ4 = ESC0004({x:4,y:2.68,z:0.5});
+VelaJ4.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ4);
+
+const VelaJ5 = ESC0004({x:1,y:3.9,z:1.5});
+VelaJ5.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ5);
+
+const VelaJ6 = ESC0004({x:1,y:3.9,z:-1.5});
+VelaJ6.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ6);
+
+const VelaJ7 = ESC0004({x:-2.15,y:3.9,z:-2.5});
+VelaJ7.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ7);
+
+const VelaJ8 = ESC0004({x:-2.15,y:3.9,z:2.5});
+VelaJ8.scale.set(0.15, 0.15, 0.15);
+scene.add(VelaJ8);
+
+const VelaH = ESC001 ({x:5.62,y:2.22,z:-3.52});
+VelaH.scale.set(0.1, 0.1, 0.1);
+VelaH.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH);
+
+const VelaH2 = ESC001 ({x:5.62,y:2.22,z:3.52});
+VelaH2.scale.set(0.1, 0.1, 0.1);
+VelaH2.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH2);
+
+const VelaH3 = ESC001 ({x:-1,y:4.25,z:-6.9});
+VelaH3.scale.set(0.1, 0.1, 0.1);
+VelaH3.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH3);
+
+const VelaH4 = ESC001 ({x:-3.3,y:5.5,z:-0.7});
+VelaH4.scale.set(0.1, 0.1, 0.1);
+VelaH4.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH4);
+
+const VelaH5 = ESC001 ({x:-3.3,y:5.5,z:0.7});
+VelaH5.scale.set(0.1, 0.1, 0.1);
+VelaH5.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH5);
+
+const VelaH6 = ESC001 ({x:-1,y:4.25,z:6.9});
+VelaH6.scale.set(0.1, 0.1, 0.1);
+VelaH6.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH6);
+
+const VelaH7 = ESC001 ({x:6.8,y:0,z:2.2});
+VelaH7.scale.set(0.1, 0.1, 0.1);
+VelaH7.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH7);
+//
+const VelaH21 = ESC001 ({x:6.8,y:0,z:-2.2});
+VelaH21.scale.set(0.1, 0.1, 0.1);
+VelaH21.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH21);
+
+const VelaJ9 = ESC0004 ({x:9.6,y:0.05,z:8.55});
+VelaJ9.scale.set(0.15, 0.15, 0.15);
+VelaJ9.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ9);
+
+const VelaJ10= ESC0004 ({x:9.6,y:0.05,z:-8.55});
+VelaJ10.scale.set(0.15, 0.15, 0.15);
+VelaJ10.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ10);
+
+const VelaJ11= ESC0004 ({x:-9.6,y:0.05,z:-8.55});
+VelaJ11.scale.set(0.15, 0.15, 0.15);
+VelaJ11.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ11);
+
+const VelaJ12= ESC0004 ({x:-9.6,y:0.05,z:8.55});
+VelaJ12.scale.set(0.15, 0.15, 0.15);
+VelaJ12.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ12);
+
+const VelaJ13= ESC0004 ({x:0,y:0.05,z:8.55});
+VelaJ13.scale.set(0.15, 0.15, 0.15);
+VelaJ13.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ13);
+
+const VelaJ14= ESC0004 ({x:0,y:0.05,z:-8.55});
+VelaJ14.scale.set(0.15, 0.15, 0.15);
+VelaJ14.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ14);
+
+const VelaJ15= ESC0004 ({x:-4.4,y:5.95,z:-4.35});
+VelaJ15.scale.set(0.15, 0.15, 0.15);
+VelaJ15.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ15);
+
+const VelaJ16= ESC0004 ({x:-4.4,y:5.95,z:4.35});
+VelaJ16.scale.set(0.15, 0.15, 0.15);
+VelaJ16.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ16);
+
+const VelaJ17= ESC0004 ({x:-9.6,y:0.05,z:0});
+VelaJ17.scale.set(0.15, 0.15, 0.15);
+VelaJ17.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaJ17);
+
+//tarros
+const Tarro = ESC003({x:1.5,y:2.7,z:6});
+Tarro.scale.set(0.1, 0.1, 0.1);
+Tarro.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Tarro);
+
+const Tarro2 = ESC003({x:-2,y:4.25,z:-6.3});
+Tarro2.scale.set(0.1, 0.1, 0.1);
+Tarro2.rotation.set(0, Math.PI / 1, 0);
+scene.add(Tarro2);
+
+//florero 
+const Florero = ESC03({x:-4.4,y:5.95,z:2.8});
+Florero.scale.set(0.4, 0.4, 0.4);
+Florero.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Florero);
+
+const Florero2 = ESC03({x:-4.4,y:5.95,z:-2.8});
+Florero2.scale.set(0.4, 0.4, 0.4);
+Florero2.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Florero2);
+
+const Florero3 = ESC03({x:-3.2,y:4.3,z:6.9});
+Florero3.scale.set(0.4, 0.4, 0.4);
+Florero3.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Florero3);
+
+const Florero4 = ESC03({x:4,y:1.89,z:2.7});
+Florero4.scale.set(0.4, 0.4, 0.4);
+Florero4.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Florero4);
+
+const Florero5 = ESC03({x:4,y:1.89,z:-2.7});
+Florero5.scale.set(0.4, 0.4, 0.4);
+Florero5.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(Florero5);
+
+const FloreroH = ESC004({x:-4.4,y:5.95,z:3.65});
+FloreroH.scale.set(0.1, 0.1, 0.1);
+FloreroH.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(FloreroH);
+
+const FloreroH2 = ESC004({x:-4.4,y:5.95,z:-3.65});
+FloreroH2.scale.set(0.1, 0.1, 0.1);
+FloreroH2.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(FloreroH2);
+
+const FloreroH3 = ESC004({x:3.55,y:0,z:-5});
+FloreroH3.scale.set(0.15, 0.15, 0.15);
+FloreroH3.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(FloreroH3);
+
+const FloreroH4 = ESC004({x:3.55,y:0,z:5});
+FloreroH4.scale.set(0.15, 0.15, 0.15);
+FloreroH4.rotation.set(0, (-130 / 180) * Math.PI, 0);
+scene.add(FloreroH4);
+
+//mike
+const mike1 = ESC00011 ({x:-5.3,y:6.95,z:-3.24});
+mike1.scale.set(0.05, 0.05, 0.05);
+mike1.rotation.set(0,Math.PI / 2, 0);
+scene.add(mike1);
+
+const mike2 = ESC00011 ({x:-5.3,y:6.95,z:3.24});
+mike2.scale.set(0.05, 0.05, 0.05);
+mike2.rotation.set(0,Math.PI / 2, 0);
+scene.add(mike2);
+
+//🎰🎰Rendering y animación
+    requestAnimationFrame(render);
+    function render() {
+    //🪄🪄 Animación -
+
+
+
+
+
+    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
+    controls.update();
+    //Llamado para renderizar y volver a llamar a la misma función (render)
+    renderer.render(scene, camera);
+    requestAnimationFrame(render);
+    }
+</script>
+</body>
+</html>
