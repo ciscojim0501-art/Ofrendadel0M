@@ -2,6 +2,7 @@
 <html lang="en"> 
 <head> 
     <title>Archivo base</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     
@@ -18,13 +19,12 @@
             "three": "./js/three.module.js",
             "three/OrbitControls": "./js/OrbitControls.js" 
         }
-}
+    }
 </script>
 <script type="module"> 
 //🗃️🗃️ Mandar llamar a la librería
     import * as THREE from 'three'; 
     import {OrbitControls} from 'three/OrbitControls';
-    console.log(OrbitControls);
     import {RoundedBoxGeometry} from "./js/RoundedBoxGeometry.js"
 
     import ESC01 from "./props/cuadro.js"
@@ -62,184 +62,302 @@
     import ESC00011 from "./props/mike.js"
 
 //🕹️🕹️ Renderer - Realiza una conexión entre el código y el canvas
-    var renderer = new THREE.WebGLRenderer({
-    canvas: document.getElementById('myCanvas'), antialias: true,
-    });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x69106B);
+const canvas = document.getElementById('myCanvas');
+
+const esMovil = window.matchMedia(
+    '(max-width: 768px), (pointer: coarse)'
+).matches;
+
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: !esMovil,
+    powerPreference: 'high-performance'
+});
+
+renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio || 1, esMovil ? 1 : 1.5)
+);
+
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x69106B);
+
+// Desactivar sombras en móviles para mejor rendimiento
+renderer.shadowMap.enabled = !esMovil;
+if (renderer.shadowMap.enabled) {
+    renderer.shadowMap.type = THREE.PCFShadowMap;
+}
+
+document.body.style.margin = '0';
+canvas.style.display = 'block';
+canvas.style.width = '100%';
+canvas.style.height = '100dvh';
 
 // 🎬 Creando nueva escena - Es el espacio donde se colocan los objetos
-    var scene = new THREE.Scene();
+var scene = new THREE.Scene();
 
 //🎥🎥 Agregar una cámara de perspectiva
-     var camera = new THREE.PerspectiveCamera(70,window.innerWidth / window.innerHeight,0.1,2000
+var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 2000);
+scene.add(camera);
+
+//Settings de la cámara
+camera.position.set(17, 2, 0);
+
+// Añadiendo los OrbitControls
+var controls = new OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(
+        window.innerWidth,
+        window.innerHeight
     );
-    scene.add(camera);
+});
 
-    //Settings de la cámara
-    camera.position.set(17, 2, 0);
-
-    // Añadiendo los OrbitControls
-    var controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    
- // ✍️ GridHelper
-
+// ✍️ Fondo
 var obj = new THREE.TextureLoader();
 var bgtexture = obj.load('img/fondo.jpg');
 scene.background = bgtexture;
 
 // Espacio para colocar los objetos
 
-///  💫💢🐭🐭 LUCES
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFShadowMap;
-//luces velas
-
+///  💫💢🐭🐭 LUCES (Todas tus luces originales exactas)
 var luzVela1 = new THREE.PointLight(0xffaa33, 2, 7, 2); 
 luzVela1.position.set(2.2, 3.65, -6.8);
 scene.add(luzVela1);
-
 
 var luzVela2 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela2.position.set(2.2, 3.65, 6.8); 
 scene.add(luzVela2);
 
-
 var luzVela3 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela3.position.set(5.62, 2.75, 3.52); 
 scene.add(luzVela3);
-
 
 var luzVela4 = new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela4.position.set(5.62, 2.75, -3.52); 
 scene.add(luzVela4);
 
-
 var luzVela5= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela5.position.set(-1, 4.8, -6.9); 
 scene.add(luzVela5);
-
 
 var luzVela6= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela6.position.set(4, 3.155, -0.5); 
 scene.add(luzVela6);
 
-
 var luzVela7= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela7.position.set(4, 3.155, 0.5); 
 scene.add(luzVela7);
-
 
 var luzVela8= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela8.position.set(-3.3, 6.05, 0.7); 
 scene.add(luzVela8);
 
-
 var luzVela9= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela9.position.set(-3.3, 6.05, -0.7); 
 scene.add(luzVela9);
-
 
 var luzVela10= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela10.position.set(1, 4.35, -1.5); 
 scene.add(luzVela10);
 
-
 var luzVela11= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela11.position.set(1, 4.35, 1.5); 
 scene.add(luzVela11);
 
-
 var luzVela12= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela12.position.set(-1, 4.8, 6.9); 
 scene.add(luzVela12);
-
 
 //
 var luzVela13 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
 luzVela13.position.set(6.8, 0.55, 2.2); 
 scene.add(luzVela13);
 
+var luzVela14 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela14.position.set(7.5, 0.55, 2.2); 
+scene.add(luzVela14);
+
+var luzVela15 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela15.position.set(8.2, 0.55, 2.2); 
+scene.add(luzVela15);
+
+var luzVela16 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela16.position.set(8.9, 0.55, 2.2); 
+scene.add(luzVela16);
+
+var luzVela17 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela17.position.set(9.6, 0.55, 2.2); 
+scene.add(luzVela17);
+
+var luzVela18 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela18.position.set(10.3, 0.55, 2.2); 
+scene.add(luzVela18);
+
+var luzVela19 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela19.position.set(11.0, 0.55, 2.2); 
+scene.add(luzVela19);
+
+var luzVela20 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela20.position.set(11.7, 0.55, 2.2); 
+scene.add(luzVela20);
+
+var luzVela21 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela21.position.set(12.4, 0.55, 2.2); 
+scene.add(luzVela21);
+
+var luzVela22 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela22.position.set(13.1, 0.55, 2.2); 
+scene.add(luzVela22);
+
+var luzVela23 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela23.position.set(13.8, 0.55, 2.2); 
+scene.add(luzVela23);
+
+var luzVela24 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela24.position.set(14.5, 0.55, 2.2); 
+scene.add(luzVela24);
+
+var luzVela25 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela25.position.set(15.2, 0.55, 2.2); 
+scene.add(luzVela25);
+
+var luzVela26 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela26.position.set(15.9, 0.55, 2.2); 
+scene.add(luzVela26);
 
 //
 var luzVela27 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
 luzVela27.position.set(6.8, 0.55, -2.2); 
 scene.add(luzVela27);
 
+var luzVela28 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela28.position.set(7.5, 0.55, -2.2); 
+scene.add(luzVela28);
+
+var luzVela29 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela29.position.set(8.2, 0.55, -2.2); 
+scene.add(luzVela29);
+
+var luzVela30 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela30.position.set(8.9, 0.55, -2.2); 
+scene.add(luzVela30);
+
+var luzVela31 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela31.position.set(9.6, 0.55, -2.2); 
+scene.add(luzVela31);
+
+var luzVela32 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela32.position.set(10.3, 0.55, -2.2); 
+scene.add(luzVela32);
+
+var luzVela33 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela33.position.set(11.0, 0.55, -2.2); 
+scene.add(luzVela33);
+
+var luzVela34 = new THREE.PointLight(0xffaa33, 2, 2, 1); 
+luzVela34.position.set(11.7, 0.55, -2.2); 
+scene.add(luzVela34);
+
+var luzVela35 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela35.position.set(12.4, 0.55, -2.2); 
+scene.add(luzVela35);
+
+var luzVela36 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela36.position.set(13.1, 0.55, -2.2); 
+scene.add(luzVela36);
+
+var luzVela37 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela37.position.set(13.8, 0.55, -2.2); 
+scene.add(luzVela37);
+
+var luzVela38 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela38.position.set(14.5, 0.55, -2.2); 
+scene.add(luzVela38);
+
+var luzVela39 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela39.position.set(15.2, 0.55, -2.2); 
+scene.add(luzVela39);
+
+var luzVela40 = new THREE.PointLight(0xffaa33, 1, 2, 1); 
+luzVela40.position.set(15.9, 0.55, -2.2); 
+scene.add(luzVela40);
 
 //
 var luzVela41= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela41.position.set(-2.15,4.36,-2.5); 
 scene.add(luzVela41);
 
-
 var luzVela42= new THREE.PointLight(0xffaa33, 2, 5, 2); 
 luzVela42.position.set(-2.15,4.36,2.5); 
 scene.add(luzVela42);
-
 
 var luzVela43= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela43.position.set(9.6,0.5,-8.55); 
 scene.add(luzVela43);
 
-
 var luzVela44= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela44.position.set(9.6,0.5,8.55); 
 scene.add(luzVela44);
-
 
 var luzVela45= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela45.position.set(-9.6,0.5,8.55); 
 scene.add(luzVela45);
 
-
 var luzVela46= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela46.position.set(-9.6,0.5,-8.55); 
 scene.add(luzVela46);
-
 
 var luzVela47= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela47.position.set(0,0.5,-8.55); 
 scene.add(luzVela47);
 
-
 var luzVela48= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela48.position.set(0,0.5,8.55); 
 scene.add(luzVela48);
-
 
 var luzVela49= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela49.position.set(-4.4,6.4,4.35); 
 scene.add(luzVela49);
 
-
 var luzVela50= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela50.position.set(-4.4,6.4,-4.35); 
 scene.add(luzVela50);
-
 
 var luzVela51= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela51.position.set(-9.6,0.5,0); 
 scene.add(luzVela51);
 
-
 var luzVela52= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela52.position.set(-6.1,11.1,3.25); 
 scene.add(luzVela52);
-
 
 var luzVela53= new THREE.PointLight(0xffaa33, 2, 10, 2); 
 luzVela53.position.set(-6.1,11.1,-3.25); 
 scene.add(luzVela53);
 
-
 var luzVela54= new THREE.PointLight(0xffaa33, 2, 7, 2); 
 luzVela54.position.set(9,2,0); 
 scene.add(luzVela54);
 
+//ilumniar pasillo de velas
+var punto_luzsuelo = new THREE.SpotLight(0xffaa33,1,10,0.38,0.5,0);
+punto_luzsuelo.target.position.set(8,0,0);
+punto_luzsuelo.position.set(8, 10, 0);
+scene.add(punto_luzsuelo.target);
+scene.add(punto_luzsuelo);
+if(!esMovil) punto_luzsuelo.castShadow = true;
+
+var punto_luzsuelo2 = new THREE.SpotLight(0xffaa33,1,10,0.38,0.5,0);
+punto_luzsuelo2.target.position.set(14,0,0);
+punto_luzsuelo2.position.set(14, 10, 0);
+scene.add(punto_luzsuelo2.target);
+scene.add(punto_luzsuelo2);
+if(!esMovil) punto_luzsuelo2.castShadow = true;
 
 //OBJETOS  ✏️✏️✏️✏️  🪶
 var piso = new THREE.Mesh(
@@ -248,7 +366,7 @@ var piso = new THREE.Mesh(
 );
 scene.add(piso);
 piso.rotation.x = -Math.PI / 2;
-piso.receiveShadow = true;
+if(!esMovil) piso.receiveShadow = true;
 
 //base
 const Base = ESC0001({x:0,y:-2.2,z:0});
@@ -548,7 +666,7 @@ const Flor5 = ESC0006({x:0.9,y:2.87,z:-5});
 scene.add(Flor5);
 
 const Flor6 = ESC0007({x:2,y:2.87,z:-6});
-Flor4.scale.set(0.015, 0.015, 0.015);
+Flor6.scale.set(0.015, 0.015, 0.015);
 scene.add(Flor6);
 
 const Flor7 = ESC0006({x:0.9,y:2.87,z:5});
@@ -858,11 +976,142 @@ const VelaH7 = ESC001 ({x:6.8,y:0,z:2.2});
 VelaH7.scale.set(0.1, 0.1, 0.1);
 VelaH7.rotation.set(0,Math.PI / -8, 0);
 scene.add(VelaH7);
+
+const VelaH8 = ESC001 ({x:7.5,y:0,z:2.2});
+VelaH8.scale.set(0.1, 0.1, 0.1);
+VelaH8.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH8);
+
+const VelaH9 = ESC001 ({x:8.2,y:0,z:2.2});
+VelaH9.scale.set(0.1, 0.1, 0.1);
+VelaH9.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH9);
+
+const VelaH10 = ESC001 ({x:8.9,y:0,z:2.2});
+VelaH10.scale.set(0.1, 0.1, 0.1);
+VelaH10.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH10);
+
+const VelaH11 = ESC001 ({x:9.6,y:0,z:2.2});
+VelaH11.scale.set(0.1, 0.1, 0.1);
+VelaH11.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH11);
+
+const VelaH12 = ESC001 ({x:10.3,y:0,z:2.2});
+VelaH12.scale.set(0.1, 0.1, 0.1);
+VelaH12.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH12);
+
+const VelaH13 = ESC001 ({x:11.0,y:0,z:2.2});
+VelaH13.scale.set(0.1, 0.1, 0.1);
+VelaH13.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH13);
+
+const VelaH14 = ESC001 ({x:11.7,y:0,z:2.2});
+VelaH14.scale.set(0.1, 0.1, 0.1);
+VelaH14.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH14);
+
+const VelaH15 = ESC001 ({x:12.4,y:0,z:2.2});
+VelaH15.scale.set(0.1, 0.1, 0.1);
+VelaH15.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH15);
+
+const VelaH16 = ESC001 ({x:13.1,y:0,z:2.2});
+VelaH16.scale.set(0.1, 0.1, 0.1);
+VelaH16.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH16);
+
+const VelaH17 = ESC001 ({x:13.8,y:0,z:2.2});
+VelaH17.scale.set(0.1, 0.1, 0.1);
+VelaH17.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH17);
+
+const VelaH18 = ESC001 ({x:14.5,y:0,z:2.2});
+VelaH18.scale.set(0.1, 0.1, 0.1);
+VelaH18.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH18);
+
+const VelaH19 = ESC001 ({x:15.2,y:0,z:2.2});
+VelaH19.scale.set(0.1, 0.1, 0.1);
+VelaH19.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH19);
+
+const VelaH20 = ESC001 ({x:15.9,y:0,z:2.2});
+VelaH20.scale.set(0.1, 0.1, 0.1);
+VelaH20.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH20);
+
 //
 const VelaH21 = ESC001 ({x:6.8,y:0,z:-2.2});
 VelaH21.scale.set(0.1, 0.1, 0.1);
 VelaH21.rotation.set(0,Math.PI / -8, 0);
 scene.add(VelaH21);
+
+const VelaH22 = ESC001 ({x:7.5,y:0,z:-2.2});
+VelaH22.scale.set(0.1, 0.1, 0.1);
+VelaH22.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH22);
+
+const VelaH23 = ESC001 ({x:8.2,y:0,z:-2.2});
+VelaH23.scale.set(0.1, 0.1, 0.1);
+VelaH23.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH23);
+
+const VelaH24 = ESC001 ({x:8.9,y:0,z:-2.2});
+VelaH24.scale.set(0.1, 0.1, 0.1);
+VelaH24.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH24);
+
+const VelaH25 = ESC001 ({x:9.6,y:0,z:-2.2});
+VelaH25.scale.set(0.1, 0.1, 0.1);
+VelaH25.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH25);
+
+const VelaH26 = ESC001 ({x:10.3,y:0,z:-2.2});
+VelaH26.scale.set(0.1, 0.1, 0.1);
+VelaH26.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH26);
+
+const VelaH27 = ESC001 ({x:11.0,y:0,z:-2.2});
+VelaH27.scale.set(0.1, 0.1, 0.1);
+VelaH27.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH27);
+
+const VelaH28 = ESC001 ({x:11.7,y:0,z:-2.2});
+VelaH28.scale.set(0.1, 0.1, 0.1);
+VelaH28.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH28);
+
+const VelaH29 = ESC001 ({x:12.4,y:0,z:-2.2});
+VelaH29.scale.set(0.1, 0.1, 0.1);
+VelaH29.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH29);
+
+const VelaH30 = ESC001 ({x:13.1,y:0,z:-2.2});
+VelaH30.scale.set(0.1, 0.1, 0.1);
+VelaH30.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH30);
+
+const VelaH31 = ESC001 ({x:13.8,y:0,z:-2.2});
+VelaH31.scale.set(0.1, 0.1, 0.1);
+VelaH31.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH31);
+
+const VelaH32 = ESC001 ({x:14.5,y:0,z:-2.2});
+VelaH32.scale.set(0.1, 0.1, 0.1);
+VelaH32.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH32);
+
+const VelaH33 = ESC001 ({x:15.2,y:0,z:-2.2});
+VelaH33.scale.set(0.1, 0.1, 0.1);
+VelaH33.rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH33);
+
+const VelaH34 = ESC001 ({x:15.9,y:0,z:-2.2});
+VelaH34 .scale.set(0.1, 0.1, 0.1);
+VelaH34 .rotation.set(0,Math.PI / -8, 0);
+scene.add(VelaH34 );
 
 const VelaJ9 = ESC0004 ({x:9.6,y:0.05,z:8.55});
 VelaJ9.scale.set(0.15, 0.15, 0.15);
@@ -978,20 +1227,21 @@ mike2.rotation.set(0,Math.PI / 2, 0);
 scene.add(mike2);
 
 //🎰🎰Rendering y animación
+let ultimoFrame = 0;
+const intervalo = esMovil ? 1000 / 30 : 1000 / 60;
+
+function render(tiempo) {
     requestAnimationFrame(render);
-    function render() {
-    //🪄🪄 Animación -
 
+    if (tiempo - ultimoFrame < intervalo) return;
 
+    ultimoFrame = tiempo;
 
-
-
-    //🎮🎮Actualización del OrbitControls para generar la suavidad de movimiento
     controls.update();
-    //Llamado para renderizar y volver a llamar a la misma función (render)
     renderer.render(scene, camera);
-    requestAnimationFrame(render);
-    }
+}
+
+requestAnimationFrame(render);
 </script>
 </body>
 </html>
